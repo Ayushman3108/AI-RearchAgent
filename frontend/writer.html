@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Research Report Writer Dashboard</title>
+    <link rel="stylesheet" href="css/writer.css">
+</head>
+<body>
+    <header class="navbar">
+
+    <div class="nav-container">
+
+        <div class="logo-container">
+
+            <div class="brand-icon">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2C9.5 2 7.5 4 7.5 6.5C7.5 7.2 7.65 7.85 7.92 8.43C6.77 9.1 6 10.35 6 11.75C6 12.5 6.22 13.2 6.6 13.78C5.65 14.4 5 15.45 5 16.65C5 18.5 6.5 20 8.35 20C8.6 20.85 9.2 21.55 10 21.95V20C10 19.45 10.45 19 11 19C11.55 19 12 19.45 12 20V22C12.34 22 12.67 21.97 13 21.9V19.5C13 18.95 13.45 18.5 14 18.5C14.55 18.5 15 18.95 15 19.5V21C15.7 20.55 16.25 19.9 16.5 19.1C17.9 18.85 19 17.6 19 16.1C19 15.15 18.55 14.3 17.85 13.75C18.25 13.15 18.5 12.45 18.5 11.7C18.5 10.35 17.75 9.15 16.65 8.5C16.85 8 17 7.4 17 6.8C17 4.15 14.8 2 12 2Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
+                    <path d="M12 5V19M9 8.5C9.8 8.5 10.5 9 10.8 9.7M15 8.5C14.2 8.5 13.5 9 13.2 9.7M8.2 12.5C9 12.5 9.7 13 10 13.7M15.8 12.5C15 12.5 14.3 13 14 13.7M9 16.5C9.7 16.5 10.3 16.9 10.6 17.5M15 16.5C14.3 16.5 13.7 16.9 13.4 17.5" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/>
+                </svg> 
+            </div>
+
+            <div>
+
+                <h1 class="brand-title">Writer Agent</h1>
+
+                <p class="brand-sub">
+                    AI Research & Report Generator
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="nav-controls">
+
+    <span class="agent-status-pill">
+        <span class="status-dot"></span>
+        Writer Active
+    </span>
+
+    <button id="themeToggleBtn"
+            class="btn-icon"
+            title="Toggle Theme"
+            aria-label="Toggle Theme">
+        🌙
+    </button>
+
+</div>
+    </div>
+
+</header>
+    <main class="dashboard-container">
+        <section class="panel input-panel">
+            <div class="panel-header">
+                <h2>Structured Analysis Input</h2>
+                <div class="panel-actions">
+                    <button id="loadExampleBtn" class="btn-secondary">Load Example Data</button>
+                    <button id="clearInputBtn" class="btn-danger">Clear</button>
+                </div>
+            </div>
+            
+            <div class="input-wrapper">
+                <label for="jsonInput">Analysis Agent Payload (JSON Format)</label>
+                <textarea id="jsonInput" placeholder="Paste the structured JSON analysis dataset here... (or click 'Load Example Data')" autocomplete="off" spellcheck="false"></textarea>
+            </div>
+
+            <div class="meta-row">
+                <div id="inputValidationBadge" class="badge badge-neutral">Awaiting Input</div>
+                <div class="shortcut-tip">Tip: Press <kbd>Ctrl</kbd> + <kbd>Enter</kbd> to generate</div>
+            </div>
+
+            <button id="generateBtn" class="btn-primary">
+                <span class="btn-text">Generate Academic Report</span>
+                <span class="loader hidden"></span>
+            </button>
+
+            <div id="progressIndicator" class="progress-container hidden">
+                <div class="progress-bar-wrapper">
+                    <div id="progressBar" class="progress-bar"></div>
+                </div>
+                <p id="progressStatus">Initializing generation protocols...</p>
+            </div>
+        </section>
+
+        <section class="panel output-panel empty" id="outputPanel">
+            <div class="empty-state-overlay" id="emptyState">
+                <div class="empty-icon">📄</div>
+                <h3>No Report Generated Yet</h3>
+                <p>Provide verified JSON analysis data on the left panel and click generate to synthesize your formal academic paper.</p>
+            </div>
+
+            <div class="output-content-wrapper hidden" id="outputWrapper">
+                <div class="panel-header sticky-header">
+                    <div class="title-meta">
+                        <h2 id="reportDocumentTitle">Research Report Document</h2>
+                        <div class="metrics-row">
+                            <span class="metric-tag">Words: <strong id="wordCountLabel">0</strong></span>
+                            <span class="metric-tag">Reading Time: <strong id="readingTimeLabel">0 min</strong></span>
+                        </div>
+                    </div>
+                    <div class="export-dropdown-wrapper">
+                        <button id="exportDropdownBtn" class="btn-secondary">Export / Download ▾</button>
+                        <div id="exportMenu" class="dropdown-menu hidden">
+                            <button class="dropdown-item" id="downloadMdBtn">Download Markdown (.md)</button>
+                            <button class="dropdown-item" id="downloadTxtBtn">Download Text (.txt)</button>
+                            <button class="dropdown-item" id="downloadJsonBtn">Export Complete JSON</button>
+                            <hr>
+                            <button class="dropdown-item" id="copyFullReportBtn">Copy Entire Report</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="report-render-area">
+                    <article class="report-card">
+                        <div class="card-header">
+                            <h3>Document Title</h3>
+                            <button class="btn-copy-section" data-target="reportTitleDisplay" title="Copy section text">Copy</button>
+                        </div>
+                        <div class="card-body raw-text-display title-display" id="reportTitleDisplay"></div>
+                    </article>
+
+                    <article class="report-card">
+                        <div class="card-header">
+                            <h3>Abstract</h3>
+                            <button class="btn-copy-section" data-target="abstractDisplay" title="Copy section text">Copy</button>
+                        </div>
+                        <div class="card-body text-block" id="abstractDisplay"></div>
+                    </article>
+
+                    <article class="report-card">
+                        <div class="card-header">
+                            <h3>1. Introduction</h3>
+                            <button class="btn-copy-section" data-target="introductionDisplay" title="Copy section text">Copy</button>
+                        </div>
+                        <div class="card-body text-block" id="introductionDisplay"></div>
+                    </article>
+
+                    <article class="report-card">
+                        <div class="card-header">
+                            <h3>2. Main Discussion</h3>
+                            <button class="btn-copy-section" data-target="mainContentDisplay" title="Copy section text">Copy</button>
+                        </div>
+                        <div class="card-body text-block" id="mainContentDisplay"></div>
+                    </article>
+
+                    <article class="report-card">
+                        <div class="card-header">
+                            <h3>3. Comparative Analysis: Advantages</h3>
+                            <button class="btn-copy-section" data-target="advantagesDisplay" title="Copy section text">Copy</button>
+                        </div>
+                        <div class="card-body text-block" id="advantagesDisplay"></div>
+                    </article>
+
+                    <article class="report-card">
+                        <div class="card-header">
+                            <h3>4. Architectural Challenges</h3>
+                            <button class="btn-copy-section" data-target="challengesDisplay" title="Copy section text">Copy</button>
+                        </div>
+                        <div class="card-body text-block" id="challengesDisplay"></div>
+                    </article>
+
+                    <article class="report-card">
+                        <div class="card-header">
+                            <h3>5. Future Scope & Emerging Horizons</h3>
+                            <button class="btn-copy-section" data-target="futureScopeDisplay" title="Copy section text">Copy</button>
+                        </div>
+                        <div class="card-body text-block" id="futureScopeDisplay"></div>
+                    </article>
+
+                    <article class="report-card">
+                        <div class="card-header">
+                            <h3>6. Conclusion</h3>
+                            <button class="btn-copy-section" data-target="conclusionDisplay" title="Copy section text">Copy</button>
+                        </div>
+                        <div class="card-body text-block" id="conclusionDisplay"></div>
+                    </article>
+
+                    <article class="report-card">
+                        <div class="card-header">
+                            <h3>References</h3>
+                            <button class="btn-copy-section" data-target="referencesDisplay" title="Copy section text">Copy</button>
+                        </div>
+                        <div class="card-body text-block" id="referencesDisplay"></div>
+                    </article>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="toastNotification" class="toast hidden">Action completed successfully!</div>
+
+   <script src="js/writer.js"></script>
+   <button id="goToWriterBtn" class="primary-action-btn">
+        CONTINUE TO NEXT
+    </button>
+    <footer class="footer">
+         <p>
+            AI Research Report Generator • AI Powered • Transforming Ideas into Structured Knowledge
+        </p>
+    </footer>
+</body>
+</html>

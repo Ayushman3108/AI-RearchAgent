@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Research Analysis Dashboard</title>
+    <link rel="stylesheet" href="css/analysis.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="app-header">
+
+    <div class="logo-area">
+
+        <div class="brand-icon">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2C9.5 2 7.5 4 7.5 6.5C7.5 7.2 7.65 7.85 7.92 8.43C6.77 9.1 6 10.35 6 11.75C6 12.5 6.22 13.2 6.6 13.78C5.65 14.4 5 15.45 5 16.65C5 18.5 6.5 20 8.35 20C8.6 20.85 9.2 21.55 10 21.95V20C10 19.45 10.45 19 11 19C11.55 19 12 19.45 12 20V22C12.34 22 12.67 21.97 13 21.9V19.5C13 18.95 13.45 18.5 14 18.5C14.55 18.5 15 18.95 15 19.5V21C15.7 20.55 16.25 19.9 16.5 19.1C17.9 18.85 19 17.6 19 16.1C19 15.15 18.55 14.3 17.85 13.75C18.25 13.15 18.5 12.45 18.5 11.7C18.5 10.35 17.75 9.15 16.65 8.5C16.85 8 17 7.4 17 6.8C17 4.15 14.8 2 12 2Z"
+                    stroke="currentColor"
+                    stroke-width="1.4"
+                    stroke-linejoin="round"/>
+                <path d="M12 5V19M9 8.5C9.8 8.5 10.5 9 10.8 9.7M15 8.5C14.2 8.5 13.5 9 13.2 9.7M8.2 12.5C9 12.5 9.7 13 10 13.7M15.8 12.5C15 12.5 14.3 13 14 13.7M9 16.5C9.7 16.5 10.3 16.9 10.6 17.5M15 16.5C14.3 16.5 13.7 16.9 13.4 17.5"
+                    stroke="currentColor"
+                    stroke-width="1.1"
+                    stroke-linecap="round"/>
+            </svg>
+        </div>
+
+        <div class="brand-text">
+            <span class="brand-title">Analysis Agent</span>
+            <span class="brand-sub">AI Research & Report Generator</span>
+        </div>
+
+    </div>
+
+    <div class="header-actions">
+
+        <span class="agent-status-pill">
+            <span class="status-dot"></span>
+            Analysis Active
+        </span>
+
+        <button
+            id="themeToggleBtn"
+            class="icon-btn"
+            title="Toggle Theme"
+            aria-label="Toggle Theme">
+            🌙
+        </button>
+
+    </div>
+
+</header>
+    <main class="dashboard-container">
+        
+        <section class="workspace-card ingest-pane">
+            <div class="pane-header">
+                <h2>Raw Research Ingest</h2>
+                <div class="utility-row">
+                    <button id="pasteInputBtn" class="text-btn-sm">Paste</button>
+                    <button id="copyInputBtn" class="text-btn-sm">Copy</button>
+                    <button id="clearInputBtn" class="text-btn-sm secondary">Clear</button>
+                </div>
+            </div>
+            
+            <div class="textarea-wrapper">
+                <textarea id="researchInput" placeholder="Drop, paste, or type raw unstructured analytical data collected by your ingestion protocols here... (Minimum 20 characters)"></textarea>
+            </div>
+            
+            <div class="metrics-row">
+                <span id="wordCountLabel">Words: 0</span>
+                <span id="charCountLabel">Characters: 0</span>
+            </div>
+
+            <button id="analyzeSubmitBtn" class="primary-action-btn">
+                <span>Execute Operational Analysis</span>
+                <div id="btnSpinner" class="spinner hidden"></div>
+            </button>
+
+            <div id="progressContainer" class="progress-container hidden">
+                <div class="progress-bar-track">
+                    <div id="progressBarFill" class="progress-bar-fill"></div>
+                </div>
+                <p id="progressStatusText">Transforming payload schemas via generative layers...</p>
+            </div>
+        </section>
+
+        <section class="workspace-card analytical-pane">
+            <div class="pane-header">
+                <h2>Structured Intelligence Output</h2>
+                <div class="utility-row" id="outputGlobalActions" style="opacity: 0.4; pointer-events: none;">
+                    <button id="copyJsonBtn" class="text-btn-sm">Copy Full JSON</button>
+                    <button id="exportJsonBtn" class="text-btn-sm">Export JSON File</button>
+                    <button id="exportTxtBtn" class="text-btn-sm">Download TXT Report</button>
+                    <button id="clearOutputBtn" class="text-btn-sm secondary">Clear Screen</button>
+                </div>
+            </div>
+
+            <div id="emptyStatePlaceholder" class="empty-state-view">
+                <div class="empty-box-graphic"></div>
+                <h3>Awaiting Operational Telemetry</h3>
+                <p>Provide unstructured inputs within the ingestion pipeline layout matrices on the left grid panel to begin parsing structural fields.</p>
+            </div>
+
+            <div id="analysisOutputGrid" class="analysis-output-grid hidden">
+                <div class="output-card span-full">
+                    <div class="card-title-bar">
+                        <h3>Executive Summary</h3>
+                        <button class="section-copy-btn" data-target="summaryField">Copy Block</button>
+                    </div>
+                    <div class="card-content-block" id="summaryField"></div>
+                </div>
+
+                <div class="output-card">
+                    <div class="card-title-bar">
+                        <h3>Key Points</h3>
+                        <button class="section-copy-btn" data-target="keyPointsField">Copy Block</button>
+                    </div>
+                    <ul class="card-content-list" id="keyPointsField"></ul>
+                </div>
+
+                <div class="output-card">
+                    <div class="card-title-bar">
+                        <h3>Quantitative Statistics</h3>
+                        <button class="section-copy-btn" data-target="statisticsField">Copy Block</button>
+                    </div>
+                    <ul class="card-content-list data-list" id="statisticsField"></ul>
+                </div>
+
+                <div class="output-card structural-positive">
+                    <div class="card-title-bar">
+                        <h3>Identified Advantages</h3>
+                        <button class="section-copy-btn" data-target="advantagesField">Copy Block</button>
+                    </div>
+                    <ul class="card-content-list" id="advantagesField"></ul>
+                </div>
+
+                <div class="output-card structural-negative">
+                    <div class="card-title-bar">
+                        <h3>Structural Challenges</h3>
+                        <button class="section-copy-btn" data-target="challengesField">Copy Block</button>
+                    </div>
+                    <ul class="card-content-list" id="challengesField"></ul>
+                </div>
+
+                <div class="output-card">
+                    <div class="card-title-bar">
+                        <h3>Horizon Lines & Future Trends</h3>
+                        <button class="section-copy-btn" data-target="trendsField">Copy Block</button>
+                    </div>
+                    <ul class="card-content-list" id="trendsField"></ul>
+                </div>
+
+                <div class="output-card">
+                    <div class="card-title-bar">
+                        <h3>Indexed Keywords</h3>
+                        <button class="section-copy-btn" data-target="keywordsField">Copy Block</button>
+                    </div>
+                    <div class="keyword-pill-cloud" id="keywordsField"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="toastNotification" class="toast-notification-hub"></div>
+    <div style="text-align:center;margin:40px 0;">
+    <button id="goToWriterBtn" class="primary-action-btn">
+        CONTINUE TO NEXT
+    </button>
+    </div>  
+
+    <footer class="app-footer">
+        <p>AI Research Report Generator • AI Powered • Transforming Ideas into Structured Knowledge</p>
+    </footer>
+    <script src="js/analysis.js"></script>
+</body>
+</html>

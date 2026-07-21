@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Research Review & Export Agent</title>
+    <link rel="stylesheet" href="css/reviewer.css">
+</head>
+<body>
+    <header class="glass-header">
+
+    <div class="logo-container">
+
+        <div class="brand-icon">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2C9.5 2 7.5 4 7.5 6.5C7.5 7.2 7.65 7.85 7.92 8.43C6.77 9.1 6 10.35 6 11.75C6 12.5 6.22 13.2 6.6 13.78C5.65 14.4 5 15.45 5 16.65C5 18.5 6.5 20 8.35 20C8.6 20.85 9.2 21.55 10 21.95V20C10 19.45 10.45 19 11 19C11.55 19 12 19.45 12 20V22C12.34 22 12.67 21.97 13 21.9V19.5C13 18.95 13.45 18.5 14 18.5C14.55 18.5 15 18.95 15 19.5V21C15.7 20.55 16.25 19.9 16.5 19.1C17.9 18.85 19 17.6 19 16.1C19 15.15 18.55 14.3 17.85 13.75C18.25 13.15 18.5 12.45 18.5 11.7C18.5 10.35 17.75 9.15 16.65 8.5C16.85 8 17 7.4 17 6.8C17 4.15 14.8 2 12 2Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
+            <path d="M12 5V19M9 8.5C9.8 8.5 10.5 9 10.8 9.7M15 8.5C14.2 8.5 13.5 9 13.2 9.7M8.2 12.5C9 12.5 9.7 13 10 13.7M15.8 12.5C15 12.5 14.3 13 14 13.7M9 16.5C9.7 16.5 10.3 16.9 10.6 17.5M15 16.5C14.3 16.5 13.7 16.9 13.4 17.5" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/>
+        </svg>  
+        </div>
+
+        <div>
+
+            <h1 class="brand-title">Review Agent  And Export</h1>
+
+            <p class="brand-sub">
+                AI Research & Report Generator
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="header-actions">
+
+    <span class="agent-status-pill">
+        <span class="status-dot"></span>
+        Review Active
+    </span>
+
+    <button id="theme-toggle" class="btn-icon" title="Toggle Theme">
+        🌙
+    </button>
+
+</div>
+
+</header>
+
+    <main class="dashboard-container">
+        <section class="input-section card">
+            <h2>Raw Research Report</h2>
+            <textarea id="raw-report" placeholder="Paste the research report here..."></textarea>
+            <div class="action-buttons">
+                <button id="clear-btn" class="btn-secondary">Clear</button>
+                <button id="review-btn" class="btn-primary">
+                    <span class="btn-text">Review Report</span>
+                    <div class="spinner hidden" id="loading-spinner"></div>
+                </button>
+            </div>
+            <div id="status-message" class="status-message hidden"></div>
+        </section>
+
+        <section class="output-section card" id="results-panel">
+            <h2>Review Results</h2>
+            <div id="empty-state">
+                <h3>Awaiting Review</h3>
+                <p>Please click  review report, to see the reviewed report here.</p>
+            </div>
+        <div id="review-content" class="hidden">
+
+        <div class="stats-grid">  
+                <div class="stat-card">
+                    <span class="stat-label">Grammar</span>
+                    <span class="stat-value" id="stat-grammar">0</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-label">Readability</span>
+                    <span class="stat-value" id="stat-readability">0</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-label">Formatting</span>
+                    <span class="stat-value" id="stat-formatting">0</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-label">Words</span>
+                    <span class="stat-value" id="stat-words">0</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-label">Characters</span>
+                    <span class="stat-value" id="stat-chars">0</span>
+                </div>
+            </div>
+
+            <div class="reviewed-text-container">
+                <h3>Polished Report</h3>
+                <textarea id="reviewed-report" readonly></textarea>
+            </div>
+
+            <div class="suggestions-panel">
+                <h3>Improvement Suggestions</h3>
+                <ul id="suggestions-list"></ul>
+            </div>
+
+            <div class="export-actions">
+                <button id="copy-btn" class="btn-secondary">Copy Text</button>
+                <button id="export-pdf-btn" class="btn-accent">Download PDF</button>
+                <button id="export-txt-btn" class="btn-accent">Download TXT</button>
+                <button id="export-json-btn" class="btn-accent">Download JSON</button>
+            </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="js/reviewer.js"></script>
+    <footer class="footer">
+        <p>
+            AI Research Report Generator • AI Powered • Transforming Ideas into Structured Knowledge
+        </p>
+    </footer>
+</body>
+</html>
