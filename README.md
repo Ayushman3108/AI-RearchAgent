@@ -1,7 +1,6 @@
                                              # AI-RearchAgent
 #⚡ AAROGYA-47 — Quantum Clinical Intelligence & Unified Lifetime Health Timeline
 <div align="center">
-![AAROGYA-47 Banner](https://img.shields.io/badge/AAROGYA--47-Quantum%20Clinical%20Intelligence-00F5A0?style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZmlsbD0id2hpdGUiIGQ9Ik0xMiAyTDIgN2wxMCA1IDEwLTVMMTIgMnptMCAxNEwyIDExdjZsMTAgNSAxMC01di02TDEyIDE2eiIvPjwvc3ZnPg==&labelColor=050811)
 
 **Patient Case Taking & Unified Lifetime Health Timeline Engine**
 [![React](https://img.shields.io/badge/React-18.x-61DAFB?style=flat-square&logo=react&logoColor=black)](https://reactjs.org/)
